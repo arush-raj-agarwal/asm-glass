@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, X, Menu } from 'lucide-react'; // Added Menu icon
+import { MapPin, Phone, Mail, X, Menu } from 'lucide-react';
 import Home from './pages/Home';
 import ApplianceGlass from './pages/ApplianceGlass';
 import PrintedGlass from './pages/PrintedGlass';
@@ -13,10 +13,16 @@ import About from './pages/About';
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile menu state
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // NEW: State to track if the Products dropdown is open inside the mobile menu
+  const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false); 
 
-  // Helper function to close mobile menu when a link is clicked
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  // Helper functions to manage menu closing
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+    setIsMobileProductsOpen(false); // Reset the dropdown when menu closes
+  };
 
   return (
     <Router>
@@ -27,11 +33,11 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <Link to="/" onClick={closeMobileMenu} className="text-2xl font-bold tracking-tighter">ASM GLASS</Link>
             
-            {/* Desktop Navigation (Hidden on Mobile) */}
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-600">
               <Link to="/" className="hover:text-black transition-colors">Home</Link>
               
-              {/* Products Dropdown */}
+              {/* Desktop Products Dropdown */}
               <div className="relative group py-6">
                 <button className="flex items-center gap-1 hover:text-black transition-colors outline-none cursor-pointer">
                   Products
@@ -69,13 +75,35 @@ export default function App() {
             </button>
           </div>
 
-          {/* Mobile Navigation Dropdown Menu */}
+          {/* Mobile Navigation Menu */}
           {isMobileMenuOpen && (
-            <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-neutral-200 shadow-xl flex flex-col p-6 gap-4 z-40 animate-in slide-in-from-top-2 duration-200">
+            <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-neutral-200 shadow-xl flex flex-col p-6 gap-4 z-40 animate-in slide-in-from-top-2 duration-200 overflow-y-auto max-h-[calc(100vh-5rem)]">
               <Link to="/" onClick={closeMobileMenu} className="text-lg font-semibold text-neutral-800 hover:text-black">Home</Link>
               
-              {/* In mobile, we'll link directly to the first product to keep it simple, or you can create a dedicated product catalog page later */}
-              <Link to="/products/appliance-glass" onClick={closeMobileMenu} className="text-lg font-semibold text-neutral-800 hover:text-black">Products</Link>
+              {/* NEW: Mobile Products Accordion */}
+              <div className="flex flex-col">
+                <button 
+                  onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
+                  className="flex items-center justify-between text-lg font-semibold text-neutral-800 hover:text-black w-full text-left"
+                >
+                  Products
+                  <svg className={`w-5 h-5 transition-transform ${isMobileProductsOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {/* Mobile Sub-menu items */}
+                {isMobileProductsOpen && (
+                  <div className="flex flex-col gap-4 pl-4 mt-4 border-l-2 border-neutral-100">
+                    <Link to="/products/appliance-glass" onClick={closeMobileMenu} className="text-neutral-600 hover:text-black">Appliance Glass</Link>
+                    <Link to="/products/printed-glass" onClick={closeMobileMenu} className="text-neutral-600 hover:text-black">Printed Glass</Link>
+                    <Link to="/products/laminated-glass" onClick={closeMobileMenu} className="text-neutral-600 hover:text-black">Laminated Safety Glass</Link>
+                    <Link to="/products/lacquered-glass" onClick={closeMobileMenu} className="text-neutral-600 hover:text-black">Lacquered Glass</Link>
+                    <Link to="/products/designer-glass" onClick={closeMobileMenu} className="text-neutral-600 hover:text-black">Designer Glass</Link>
+                    <Link to="/products/crystal-glass" onClick={closeMobileMenu} className="text-neutral-600 hover:text-black">Crystal (Low-Iron) Glass</Link>
+                  </div>
+                )}
+              </div>
               
               <Link to="/about" onClick={closeMobileMenu} className="text-lg font-semibold text-neutral-800 hover:text-black">About Us</Link>
               <Link to="/contact" onClick={closeMobileMenu} className="text-lg font-semibold text-neutral-800 hover:text-black">Contact</Link>
