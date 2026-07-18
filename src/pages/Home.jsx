@@ -53,22 +53,22 @@ export default function Home() {
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
           <img 
-            src="/public/logos/makeIndia.jpeg" 
+            src="/logos/makeIndia.jpeg" 
             alt="Make in India" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
           <img 
-            src="/public/logos/saint-gobain.jpeg" 
+            src="/logos/saint-gobain.jpeg" 
             alt="Saint Gobain" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
           <img 
-            src="/public/logos/sisecam.jpeg" 
+            src="/logos/sisecam.jpeg" 
             alt="Sisecam" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
           <img 
-            src="/public/logos/gold-plus.jpeg" 
+            src="/logos/gold-plus.jpeg" 
             alt="Gold-Plus" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
