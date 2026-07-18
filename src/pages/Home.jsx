@@ -121,53 +121,46 @@ export default function Home() {
         </div>
       </section>
       
-      {/* Endless Logo Carousel our customer*/}
-      <section className="py-16 bg-white border-b border-neutral-200 overflow-hidden relative">
-        
-        {/* We inject the custom animation CSS here so it works instantly without touching config files */}
-        <style>{`
-          @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-          }
-          .animate-scroll-seamless {
-            animation: scroll-left 25s linear infinite;
-          }
-          /* Pauses the carousel when a user hovers over it */
-          .pause-on-hover:hover .animate-scroll-seamless {
-            animation-play-state: paused;
-          }
-        `}</style>
-        
-        <div className="max-w-7xl mx-auto px-6 mb-10 text-center text-sm font-semibold text-neutral-400 uppercase tracking-widest">
-          Our Customers
+      {/* Infinite Logo Carousel */}
+<section className="py-12 bg-white border-b border-neutral-200 overflow-hidden">
+  <div className="max-w-7xl mx-auto px-6 mb-6 text-center text-sm font-semibold text-neutral-400 uppercase tracking-widest">
+    Our Customers
+  </div>
+  <div className="flex overflow-hidden relative">
+    <div className="flex animate-scroll gap-16 items-center">
+      {[...Array(2)].map((_, i) => (
+        <div key={i} className="flex gap-16 items-center shrink-0">
+          {/* Replaced <span> with <img> */}
+          <img 
+            src="/logos/6.jpg" 
+            alt="BIS Certified" 
+            className="h-18 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
+          <img 
+            src="/logos/7.jpg" 
+            alt="Make in India" 
+            className="h-18 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
+          <img 
+            src="/logos/8.jpg" 
+            alt="Saint Gobain" 
+            className="h-18 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
+          <img 
+            src="/logos/9.jpg" 
+            alt="Sisecam" 
+            className="h-18 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
+          <img 
+            src="/logos/10.jpg" 
+            alt="Gold-Plus" 
+            className="h-18 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
         </div>
-        
-        {/* The Scrolling Container */}
-        <div className="flex flex-nowrap overflow-hidden pause-on-hover">
-          
-          {/* TRACK 1 */}
-          {/* Notice pr-16 (padding-right). This perfectly matches the gap-16 so the spacing between Track 1 and Track 2 is identical to the spacing between the logos themselves! */}
-          <div className="flex items-center gap-16 md:gap-24 pr-16 md:pr-24 animate-scroll-seamless shrink-0">
-            <img src="/logos/6.jpg" alt="BIS Certified" className="h-16 md:h-24 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-            <img src="/logos/7.jpg" alt="Make in India" className="h-16 md:h-24 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-            <img src="/logos/8.jpg" alt="Saint Gobain" className="h-10 md:h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-            <img src="/logos/9.jpg" alt="Sisecam" className="h-10 md:h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-            <img src="/logos/10.jpg" alt="ISI Mark" className="h-16 md:h-24 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-          </div>
-
-          {/* TRACK 2 (Exact duplicate of Track 1 for the gapless illusion) */}
-          <div className="flex items-center gap-16 md:gap-24 pr-16 md:pr-24 animate-scroll-seamless shrink-0" aria-hidden="true">
-            <img src="/logos/6.jpg" alt="BIS Certified" className="h-16 md:h-24 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-            <img src="/logos/7.jpg" alt="Make in India" className="h-16 md:h-24 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-            <img src="/logos/8.jpg" alt="Saint Gobain" className="h-10 md:h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-            <img src="/logos/9.jpg" alt="Sisecam" className="h-10 md:h-16 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-            <img src="/logos/10.jpg" alt="ISI Mark" className="h-16 md:h-24 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-          </div>
-
-        </div>
-      </section>
-
+      ))}
+    </div>
+  </div>
+</section>
       
 
       
