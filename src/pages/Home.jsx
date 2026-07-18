@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   // This array holds all your product data and image paths
   const products = [
-    { id: 1, name: 'Cooktop Glass', image: '/products/cooktop-glass.jpg', link: '/products/appliance-glass' },
+    { id: 1, name: 'Cooktop Glass', image: '/products/cooktop-glass.png', link: '/products/appliance-glass' },
     { id: 2, name: 'Printed Glass', image: '/products/printed-glass.jpg', link: '/products/printed-glass' },
-    { id: 3, name: 'Laminated Glass', image: '/products/laminated-glass.jpg', link: '/products/laminated-glass' },
-    { id: 4, name: 'Lacquered Glass', image: '/products/lacquered-glass.jpg', link: '/products/lacquered-glass' },
-    { id: 5, name: 'Designer Glass', image: '/products/designer-glass.jpg', link: '/products/designer-glass' },
-    { id: 6, name: 'Crystal Glass', image: '/products/crystal-glass.jpg', link: '/products/crystal-glass' },
+    { id: 3, name: 'Laminated Glass', image: '/products/laminated-glass.png', link: '/products/laminated-glass' },
+    { id: 4, name: 'Lacquered Glass', image: '/products/lacquered-glass.jpeg', link: '/products/lacquered-glass' },
+    { id: 5, name: 'Designer Glass', image: '/products/designer-glass.png', link: '/products/designer-glass' },
+    { id: 6, name: 'Crystal Glass', image: '/products/crystal-glass.jpeg', link: '/products/crystal-glass' },
   ];
 
   return (
@@ -18,7 +18,7 @@ export default function Home() {
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-neutral-900">
         <div className="absolute inset-0 opacity-40">
           <img 
-            src="https://images.unsplash.com/photo-1541888078971-591834220b33?auto=format&fit=crop&w=1920&q=80" 
+            src="public/products/hero.png" 
             alt="Glass Manufacturing" 
             className="w-full h-full object-cover"
           />
@@ -38,24 +38,45 @@ export default function Home() {
       </section>
 
       {/* Infinite Logo Carousel */}
-      <section className="py-12 bg-white border-b border-neutral-200 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 mb-6 text-center text-sm font-semibold text-neutral-400 uppercase tracking-widest">
-          Certified & Trusted By
+<section className="py-12 bg-white border-b border-neutral-200 overflow-hidden">
+  <div className="max-w-7xl mx-auto px-6 mb-6 text-center text-sm font-semibold text-neutral-400 uppercase tracking-widest">
+    Certified & Trusted By
+  </div>
+  <div className="flex overflow-hidden relative">
+    <div className="flex animate-scroll gap-16 items-center px-8">
+      {[...Array(2)].map((_, i) => (
+        <div key={i} className="flex gap-16 items-center">
+          {/* Replaced <span> with <img> */}
+          <img 
+            src="/public/logos/bis.jpeg" 
+            alt="BIS Certified" 
+            className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
+          <img 
+            src="/public/logos/makeIndia.jpeg" 
+            alt="Make in India" 
+            className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
+          <img 
+            src="/public/logos/saint-gobain.jpeg" 
+            alt="Saint Gobain" 
+            className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
+          <img 
+            src="/public/logos/sisecam.jpeg" 
+            alt="Sisecam" 
+            className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
+          <img 
+            src="/public/logos/gold-plus.jpeg" 
+            alt="Gold-Plus" 
+            className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
+          />
         </div>
-        <div className="flex overflow-hidden relative">
-          <div className="flex animate-scroll gap-16 items-center px-8">
-            {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex gap-16 items-center">
-                <span className="text-2xl font-bold text-neutral-300">BIS CERTIFIED</span>
-                <span className="text-2xl font-bold text-neutral-300">MAKE IN INDIA</span>
-                <span className="text-2xl font-bold text-neutral-300">SAINT GOBAIN</span>
-                <span className="text-2xl font-bold text-neutral-300">SISECAM</span>
-                <span className="text-2xl font-bold text-neutral-300">ISI MARK</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* NEW: 3x2 Product Grid Section */}
       <section className="py-24 max-w-7xl mx-auto px-6">
