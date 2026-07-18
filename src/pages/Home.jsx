@@ -18,7 +18,7 @@ export default function Home() {
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-neutral-900">
         <div className="absolute inset-0 opacity-40">
           <img 
-            src="public/products/hero.png" 
+            src="/public/products/hero.png" 
             alt="Glass Manufacturing" 
             className="w-full h-full object-cover"
           />
