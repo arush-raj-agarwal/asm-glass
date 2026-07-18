@@ -48,7 +48,7 @@ export default function Home() {
         <div key={i} className="flex gap-16 items-center">
           {/* Replaced <span> with <img> */}
           <img 
-            src="/public/logos/bis.jpeg" 
+            src="/logos/bis.jpeg" 
             alt="BIS Certified" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
