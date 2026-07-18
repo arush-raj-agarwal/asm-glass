@@ -144,12 +144,20 @@ export default function App() {
                 Precision-engineered toughened and architectural glass for modern appliances, commercial spaces, and premium homes. Magnificently Tough.
               </p>
             </div>
+            {/* Quick Links Column */}
             <div>
               <h4 className="text-lg font-semibold text-white mb-6">Quick Links</h4>
               <ul className="space-y-3">
                 <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link to="/products/appliance-glass" className="hover:text-white transition-colors">Products</Link></li>
-                <li><button onClick={() => setIsModalOpen(true)} className="hover:text-white transition-colors">Download Brochure</button></li>
+                {/* Links back to home page where the product grid is */}
+                <li><Link to="/" className="hover:text-white transition-colors">Products</Link></li> 
+                <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
+                <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                <li className="pt-2">
+                  <button onClick={() => setIsModalOpen(true)} className="text-white font-medium hover:text-neutral-300 transition-colors">
+                    Download Brochure &rarr;
+                  </button>
+                </li>
               </ul>
             </div>
             <div>
