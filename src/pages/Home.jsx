@@ -43,32 +43,32 @@ export default function Home() {
     Certified & Trusted By
   </div>
   <div className="flex overflow-hidden relative">
-    <div className="flex animate-scroll gap-16 items-center px-8">
+    <div className="flex animate-scroll gap-16 items-center">
       {[...Array(2)].map((_, i) => (
-        <div key={i} className="flex gap-16 items-center">
+        <div key={i} className="flex gap-16 items-center shrink-0">
           {/* Replaced <span> with <img> */}
           <img 
-            src="/logos/bis.jpeg" 
+            src="/logos/bis.jpg" 
             alt="BIS Certified" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
           <img 
-            src="/logos/makeIndia.jpeg" 
+            src="/logos/makeindia.jpg" 
             alt="Make in India" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
           <img 
-            src="/logos/saint-gobain.jpeg" 
+            src="/logos/saint.jpg" 
             alt="Saint Gobain" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
           <img 
-            src="/logos/sisecam.jpeg" 
+            src="/logos/sis.jpg" 
             alt="Sisecam" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
           <img 
-            src="/logos/gold-plus.jpeg" 
+            src="/logos/gold-plus.jpg" 
             alt="Gold-Plus" 
             className="h-12 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity duration-300" 
           />
