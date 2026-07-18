@@ -77,7 +77,7 @@ export default function Contact() {
             <iframe 
               title="ASM Glass Location"
               className="w-full h-full"
-              src="https://maps.google.com/maps?q=Muzaffarnagar,%20Uttar%20Pradesh%20251001&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3473.3797857962695!2d77.75540747589261!3d29.47611597521463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390c05532f60d945%3A0x5895aa28ed42d27e!2sASM%20Glass!5e0!3m2!1sen!2sin!4v1784373567471!5m2!1sen!2sin" 
               allowFullScreen 
               loading="lazy"
             ></iframe>
