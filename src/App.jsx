@@ -1,5 +1,8 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+// import { useState } from 'react';
+// import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+//------------
 import { MapPin, Phone, Mail, X, Menu } from 'lucide-react';
 import Home from './pages/Home';
 import ApplianceGlass from './pages/ApplianceGlass';
@@ -10,6 +13,18 @@ import DesignerGlass from './pages/DesignerGlass';
 import CrystalGlass from './pages/CrystalGlass';
 import Contact from './pages/Contact';
 import About from './pages/About';
+
+//it added to go to top of page when link is clicked
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+//----------
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,6 +43,7 @@ export default function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-neutral-50 text-neutral-900 font-sans flex flex-col relative">
         
         {/* Global Premium Navigation */}
