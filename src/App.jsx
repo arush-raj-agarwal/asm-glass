@@ -14,6 +14,8 @@ import About from './pages/About';
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isBrochureUnlocked, setIsBrochureUnlocked] = useState(false);
+  const [isSubmittingBrochure, setIsSubmittingBrochure] = useState(false);
   
   // NEW: State to track if the Products dropdown is open inside the mobile menu
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false); 
@@ -196,34 +198,119 @@ export default function App() {
         {/* Brochure Lead Generation Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            {/* Increased max-w-2xl so the PDF has room to display nicely */}
+            <div className="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl relative animate-in fade-in zoom-in duration-200">
+              
+              {/* Close Button - also resets the form when closed */}
               <button 
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-neutral-400 hover:text-black transition-colors"
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setTimeout(() => setIsBrochureUnlocked(false), 300); // Reset after modal closes
+                }}
+                className="absolute top-4 right-4 text-neutral-400 hover:text-black transition-colors z-10"
               >
                 <X className="w-6 h-6" />
               </button>
+
               <div className="p-8">
-                <h3 className="text-2xl font-bold mb-2 text-neutral-900">Get Our Full Catalog</h3>
-                <p className="text-neutral-500 mb-6 text-sm">
-                  Enter your details to instantly download the complete ASM Glass product brochure and specifications.
-                </p>
-                <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                  <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-1">Full Name</label>
-                    <input type="text" placeholder="e.g. Rahul Sharma" className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-1">Phone Number</label>
-                    <div className="flex">
-                      <span className="inline-flex items-center px-3 border border-r-0 border-neutral-300 bg-neutral-50 text-neutral-500 rounded-l-lg text-sm">+91</span>
-                      <input type="tel" placeholder="99999 99999" className="w-full px-4 py-2 border border-neutral-300 rounded-r-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all" />
+                {!isBrochureUnlocked ? (
+                  /* STEP 1: LEAD CAPTURE FORM */
+                  <>
+                    <h3 className="text-2xl font-bold mb-2 text-neutral-900">Get Our Full Catalog</h3>
+                    <p className="text-neutral-500 mb-6 text-sm">
+                      Enter your details to instantly view and download the complete ASM Glass product brochure.
+                    </p>
+                    <form className="space-y-4" onSubmit={async (e) => {
+                      e.preventDefault();
+                      setIsSubmittingBrochure(true);
+                      
+                      const formData = new FormData(e.target);
+                      
+                      // Handle the country code and 10-digit number formatting
+                      const countryCode = formData.get('countryCode');
+                      const phoneDigits = formData.get('phone');
+                      formData.set('phone', `'${countryCode} ${phoneDigits}`); // Added the ' for Sheets formatting
+                      formData.delete('countryCode');
+
+                      // Add a hidden traffic-cop label for the Google Script
+                      formData.append('formType', 'Brochure');
+
+                      const data = new URLSearchParams(formData);
+                      
+                      // 👇 PASTE YOUR GOOGLE SCRIPT URL HERE 👇
+                      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyOk4NoXvSQcRguPTF79M7RgCu0iPJw3Y0zhCMOAQXn_i0iWre8BX5m6r5TNfdKaf-2Uw/exec";
+
+                      try {
+                        await fetch(GOOGLE_SCRIPT_URL, {
+                          method: "POST",
+                          mode: "no-cors",
+                          body: data
+                        });
+                        
+                        setIsSubmittingBrochure(false);
+                        setIsBrochureUnlocked(true); // Unlock the PDF!
+                      } catch (error) {
+                        console.error("Form submission error:", error);
+                        setIsSubmittingBrochure(false);
+                        // We still unlock it even if there's an error so the user isn't stuck
+                        setIsBrochureUnlocked(true);
+                      }
+                    }}>
+                      <div>
+                        <label className="block text-sm font-medium text-neutral-700 mb-1">Full Name</label>
+                        {/* Added name="name" */}
+                        <input required name="name" type="text" placeholder="e.g. Rahul Sharma" className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all" />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-neutral-700 mb-1">Phone Number</label>
+                        <div className="flex">
+                           {/* Added Country Code Dropdown */}
+                           <select 
+                            name="countryCode" 
+                            defaultValue="+91"
+                            className="px-2 py-2 border border-r-0 border-neutral-300 bg-neutral-50 text-neutral-600 rounded-l-lg focus:ring-2 focus:ring-black outline-none transition-all cursor-pointer text-sm"
+                          >
+                            <option value="+91">+91</option>
+                            <option value="+1">+1</option>
+                            <option value="+44">+44</option>
+                            <option value="+971">+971</option>
+                            <option value="+61">+61</option>
+                          </select>
+                          {/* Added name="phone" and length restrictions */}
+                          <input required name="phone" type="tel" pattern="[0-9]{10}" maxLength="10" title="Please enter exactly 10 digits" placeholder="9999999999" className="w-full px-4 py-2 border border-neutral-300 rounded-r-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all" />
+                        </div>
+                      </div>
+                      
+                      <button type="submit" disabled={isSubmittingBrochure} className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-neutral-800 transition-colors mt-2 disabled:opacity-70">
+                        {isSubmittingBrochure ? 'Unlocking...' : 'Unlock Brochure'}
+                      </button>
+                    </form>
+                  </>
+                ) : (
+                  /* STEP 2: PDF VIEWER & DOWNLOAD (Unlocked state) */
+                  <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <h3 className="text-2xl font-bold mb-2 text-neutral-900 text-left">Your Brochure is Ready</h3>
+                    
+                    {/* The iframe displays the PDF directly on the page */}
+                    <div className="w-full h-80 md:h-96 border border-neutral-200 rounded-lg mb-6 overflow-hidden bg-neutral-100">
+                      <iframe 
+                        src="/asm-brochure.pdf" 
+                        title="ASM Glass Brochure"
+                        className="w-full h-full"
+                      ></iframe>
                     </div>
+
+                    {/* The download attribute forces the file to download to their device */}
+                    <a 
+                      href="/asm-brochure.pdf" 
+                      download="ASM_Glass_Brochure.pdf"
+                      className="inline-flex w-full justify-center bg-black text-white py-3 rounded-lg font-semibold hover:bg-neutral-800 transition-colors"
+                    >
+                      Download PDF to Device
+                    </a>
                   </div>
-                  <button type="submit" className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-neutral-800 transition-colors mt-2">
-                    Request OTP & Download
-                  </button>
-                </form>
+                )}
               </div>
             </div>
           </div>
